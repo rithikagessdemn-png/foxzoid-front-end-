@@ -34,7 +34,7 @@ export const createAdminBlog = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log("📤 Creating blog with data:", data);
-      
+
       // Send as JSON, not FormData
       const res = await api.post("/adminblog", data);
       console.log("✅ Create Response:", res.data);
@@ -51,7 +51,7 @@ export const updateAdminBlog = createAsyncThunk(
   async ({ id, data }, { rejectWithValue }) => {
     try {
       console.log("📤 Updating blog with id:", id, "and data:", data);
-      
+
       // Send as JSON, not FormData
       const res = await api.put(`/adminblog/${id}`, data);
       console.log("✅ Update Response:", res.data);
@@ -112,8 +112,8 @@ const adminBlogSlice = createSlice({
         state.loading = false;
         // ✅ Handle both response formats
         if (action.payload && action.payload.success && action.payload.data) {
-          state.posts = Array.isArray(action.payload.data) 
-            ? action.payload.data 
+          state.posts = Array.isArray(action.payload.data)
+            ? action.payload.data
             : [];
         } else if (Array.isArray(action.payload)) {
           state.posts = action.payload;
@@ -138,10 +138,10 @@ const adminBlogSlice = createSlice({
       .addCase(createAdminBlog.fulfilled, (state, action) => {
         state.loading = false;
         // ✅ Extract data from response
-        const newPost = action.payload && action.payload.success 
-          ? action.payload.data 
+        const newPost = action.payload && action.payload.success
+          ? action.payload.data
           : action.payload;
-        
+
         if (newPost) {
           state.posts.unshift(newPost);
           state.successMessage = "Blog post created successfully!";
@@ -163,10 +163,10 @@ const adminBlogSlice = createSlice({
       .addCase(updateAdminBlog.fulfilled, (state, action) => {
         state.loading = false;
         // ✅ Extract data from response
-        const updatedPost = action.payload && action.payload.success 
-          ? action.payload.data 
+        const updatedPost = action.payload && action.payload.success
+          ? action.payload.data
           : action.payload;
-        
+
         if (updatedPost && updatedPost._id) {
           state.posts = state.posts.map((post) =>
             post._id === updatedPost._id ? updatedPost : post

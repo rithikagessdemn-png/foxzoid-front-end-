@@ -127,8 +127,8 @@ const adminGallerySlice = createSlice({
         state.loading = false;
         // Handle different response formats
         if (action.payload && action.payload.success && action.payload.data) {
-          state.items = Array.isArray(action.payload.data) 
-            ? action.payload.data 
+          state.items = Array.isArray(action.payload.data)
+            ? action.payload.data
             : [];
         } else if (Array.isArray(action.payload)) {
           state.items = action.payload;
@@ -153,10 +153,10 @@ const adminGallerySlice = createSlice({
       .addCase(addGallery.fulfilled, (state, action) => {
         state.loading = false;
         // Extract data from response
-        const newItem = action.payload && action.payload.success 
-          ? action.payload.data 
+        const newItem = action.payload && action.payload.success
+          ? action.payload.data
           : action.payload;
-        
+
         if (newItem) {
           state.items.unshift(newItem);
           state.successMessage = "Gallery item added successfully!";
@@ -177,10 +177,10 @@ const adminGallerySlice = createSlice({
       .addCase(updateGallery.fulfilled, (state, action) => {
         state.loading = false;
         // Extract data from response
-        const updatedItem = action.payload && action.payload.success 
-          ? action.payload.data 
+        const updatedItem = action.payload && action.payload.success
+          ? action.payload.data
           : action.payload;
-        
+
         if (updatedItem && updatedItem._id) {
           state.items = state.items.map((item) =>
             item._id === updatedItem._id ? updatedItem : item
@@ -220,10 +220,10 @@ const adminGallerySlice = createSlice({
       .addCase(toggleFeatured.fulfilled, (state, action) => {
         state.loading = false;
         // Extract data from response
-        const updatedItem = action.payload && action.payload.success 
-          ? action.payload.data 
+        const updatedItem = action.payload && action.payload.success
+          ? action.payload.data
           : action.payload;
-        
+
         if (updatedItem && updatedItem._id) {
           state.items = state.items.map((item) =>
             item._id === updatedItem._id ? updatedItem : item
@@ -240,11 +240,11 @@ const adminGallerySlice = createSlice({
   },
 });
 
-export const { 
-  clearMessages, 
-  clearError, 
-  clearSuccessMessage, 
-  resetGallery 
+export const {
+  clearMessages,
+  clearError,
+  clearSuccessMessage,
+  resetGallery
 } = adminGallerySlice.actions;
 
 export default adminGallerySlice.reducer;
